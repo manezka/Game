@@ -1,6 +1,6 @@
 import requests
 import json
-from config import keys
+from config import keys, API_access_key, url
 
 class ConverterException(Exception):
     pass
@@ -26,8 +26,15 @@ class Convertor:
         except ValueError:
             raise ConverterException(f'Не удалось обработать количество {amount}')
 
-        r = requests.get(f'https://api.exchangeratesapi.io/latest?symbols={quote_ticker}&base={base_ticker}')
-        result = float(json.loads(r.content)['rates'][base_ticker])*amount
+        r = requests.get(f'{url}?access_key={API_access_key}&symbols={quote_ticker}')
+        r1 = requests.get(f'{url}?access_key={API_access_key}&symbols={base_ticker}')
+        if base =='EUR':
+            total_base = json.loads(r.content)['rates'][quote_ticker]*amount
+
+        else:
+            A = json.loads(r1.content)['rates'][base_ticker]
+            B = json.loads(r.content)['rates'][quote_ticker]
+            total_base = (B/A) * amount
 
 
-        return round(result, 3)
+        return round(total_base, 2)
