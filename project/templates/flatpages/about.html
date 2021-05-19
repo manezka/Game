@@ -1,0 +1,10 @@
+{% extends 'flatpages/default.html' %}
+{% load static %}
+{% block title %} TITLE 1 {% endblock title %}
+
+{% block content %}
+<h1>About us</h1>
+{{ flatpage.content }}
+<br>
+{{ flatpage.content }}
+{% endblock content %}
