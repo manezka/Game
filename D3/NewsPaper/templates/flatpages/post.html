@@ -1,0 +1,18 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+    News
+{% endblock title %}
+
+{% block content %}
+<h3>№ поста {{ post.id }}</h3>
+<p>{{ post.id }}</p>
+<h3>Заголовок</h3>
+<p>{{ post.header|default:"Без заголовка" }}</p>
+<h3>Дата публикации</h3>
+<p>{{ post.post_date|default:"Без даты"|date:'d.m.Y' }}</p>
+<h3>Текст поста</h3>
+<p>{{ post.body }}</p>
+
+{% endblock content %}
